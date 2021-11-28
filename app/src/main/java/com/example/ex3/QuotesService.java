@@ -25,7 +25,7 @@ public class QuotesService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        int loopTimeInSecs = 3;      // every 3 secends
+        int loopTimeInSecs = 3;      // every 3 seconds
         long loopTimeInMill = 1000 * loopTimeInSecs;
 
         Toast.makeText( getApplicationContext(), "Started Quotes Service", Toast.LENGTH_SHORT).show();
@@ -34,9 +34,9 @@ public class QuotesService extends Service {
         Intent myIntent = new Intent(this, AlarmNotificationReciver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                SystemClock.elapsedRealtime()+loopTimeInMill,
+                System.currentTimeMillis(),
                 loopTimeInMill,
                 pendingIntent
         );
@@ -47,7 +47,7 @@ public class QuotesService extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText( getApplicationContext(), "Stopped Quotes Service", Toast.LENGTH_SHORT).show();
         super.onDestroy();
+        Toast.makeText( getApplicationContext(), "Stopped Quotes Service", Toast.LENGTH_SHORT).show();
     }
 }
