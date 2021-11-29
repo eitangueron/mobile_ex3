@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Ex3</string>
+
+<!--    <string-array name="quotes">-->
+<!--        <item>YOLO</item>-->
+<!--        <item>VINI VIDI VICI</item>-->
+<!--        <item>Carpe Diem</item>-->
+<!--        <item>Que Sera Sera</item>-->
+<!--        <item>Ce la vie</item>-->
+<!--    </string-array>-->
+
 </resources>
