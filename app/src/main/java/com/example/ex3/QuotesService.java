@@ -13,8 +13,11 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 
 public class QuotesService extends Service {
+    private final int LOOP_TIME_MINUTES = 5;
+
     public QuotesService() {
     }
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -25,14 +28,9 @@ public class QuotesService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        int loopTimeInSecs = 3;      // every 3 seconds
-        long loopTimeInMill = 1000 * loopTimeInSecs;
+        long loopTimeInMill = LOOP_TIME_MINUTES * 60 * 1000;
 
-        Toast.makeText( getApplicationContext(), "Started Quotes Service", Toast.LENGTH_SHORT).show();
-
-        AlarmNotificationReciver alarmNotificationReciver = new AlarmNotificationReciver();
         Intent myIntent = new Intent(this, AlarmNotificationReciver.class);
-
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
@@ -40,6 +38,8 @@ public class QuotesService extends Service {
                 loopTimeInMill,
                 pendingIntent
         );
+
+        Toast.makeText( getApplicationContext(), "Started Quotes Service", Toast.LENGTH_SHORT).show();
 
         return START_STICKY;
     }
